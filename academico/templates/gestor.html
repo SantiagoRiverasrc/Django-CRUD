@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    {% block title %} Lista {% endblock %}
+</head>
+<body>
+    {% block contenido %}
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                <h2>Registrar Cursos</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/registrarcurso/" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group py-2">
+                                <input type="text" id="textcodigo" name="textcodigo" class="form-control" placeholder="Código" minlength="4" maxlength="4" required>
+
+                            </div>
+                            <div class="form-group py-2">
+                                <input type="text" id="textnombre" name="textnombre" class="form-control" placeholder="Nombre" maxlength="50" required>
+                            </div>
+                            <div class="form-group py-2">
+                                <input type="text" id="textcredito" name="textcredito" class="form-control" placeholder="Creditos" min="1" max="9" value="1" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success btn-block text-white botoncrear">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+                <h2>Listado de Cursos</h2>
+                <div class="table-responsive py-3">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Creditos</th>
+                                <th colspan="2">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in cur%}
+                            </tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{i.codigo}}</td>
+                                <td>{{i.nombre}}</td>
+                                <td>{{i.creditos}}</td>
+                                <td><a href="edicioncurso/{{i.codigo}}" class="btn btn-info">Editar</a></td>
+                                <td><a href="eliminarcurso/{{i.codigo}}" class="btn btn-danger botoneliminar">Eliminar</a></td>
+
+                            <tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+</body>
+</html>
+
